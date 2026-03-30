@@ -7,7 +7,7 @@ Guía de contexto para el desarrollo del tema **Heritage v3.5.0** de Shopify.
 ## Proyecto
 
 - **Tema:** Heritage v3.5.0 (autor: Shopify)
-- **Directorio del tema:** `claude-code-theme/`
+- **Directorio del tema:** raíz del repositorio (`/`)
 - **Plataforma:** Shopify Online Store 2.0
 
 ---
@@ -15,7 +15,7 @@ Guía de contexto para el desarrollo del tema **Heritage v3.5.0** de Shopify.
 ## Estructura de Directorios
 
 ```
-claude-code-theme/
+/
 ├── layout/      (2)   — layout/theme.liquid: raíz HTML de todas las páginas
 ├── templates/   (13)  — JSON: definen qué secciones componen cada tipo de página
 ├── sections/    (41)  — Bloques de composición de páginas (.liquid)
@@ -222,6 +222,6 @@ style="..." atributos inline con CSS variables
 
 ## Archivos Ignorados (.claudeignore)
 
-- `claude-code-theme/locales/` — traducciones, no afectan lógica
-- `claude-code-theme/assets/*.svg` — íconos estáticos
-- `claude-code-theme/config/settings_data.json` — estado runtime de Shopify
+- `locales/` — traducciones, no afectan lógica
+- `assets/*.svg` — íconos estáticos
+- `config/settings_data.json` — estado runtime de Shopify
