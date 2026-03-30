@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+*.env
+*.log
+*.tmp
+
+# Shopify Theme - Heritage
+# Traducciones: no relevantes para lógica/UI development
+claude-code-theme/locales/
+
+# Iconos SVG estáticos: no se editan, solo se referencian por nombre
+claude-code-theme/assets/*.svg
+
+# settings_data.json: generado automáticamente por Shopify admin (runtime state)
+# El archivo que editamos es settings_schema.json
+claude-code-theme/config/settings_data.json
