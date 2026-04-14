@@ -1,0 +1,2 @@
+- [Cart Rewards Feature](project_cart_rewards.md) — Threshold-based rewards system: free shipping + free product auto-add/remove, full architecture plan documented
+- [Cart Rewards Architecture Documentation](CART_REWARDS_DOCUMENTATION.md) — Complete technical analysis, implementation plan (7 steps), edge cases, and code structure for cart rewards

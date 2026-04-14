@@ -1,0 +1,164 @@
+{% doc %}
+  Cart Rewards Bar Snippet
+  Renders the progress bar for cart threshold rewards.
+
+  @param {string} [context] - 'drawer' | 'page' — used for CSS scoping
+{% enddoc %}
+
+{%- if settings.cart_rewards_enabled -%}
+
+{%- liquid
+  assign max_threshold = settings.cart_rewards_threshold_1_amount
+  if settings.cart_rewards_threshold_2_enabled and settings.cart_rewards_threshold_2_amount > max_threshold
+    assign max_threshold = settings.cart_rewards_threshold_2_amount
+  endif
+  if settings.cart_rewards_threshold_3_enabled and settings.cart_rewards_threshold_3_amount > max_threshold
+    assign max_threshold = settings.cart_rewards_threshold_3_amount
+  endif
+  assign max_threshold_cents = max_threshold | times: 100
+
+  assign t1_cents = settings.cart_rewards_threshold_1_amount | times: 100
+  assign t1_position = t1_cents | times: 100.0 | divided_by: max_threshold_cents
+
+  assign cart_total_cents = cart.total_price 
+  assign fill_percent = cart_total_cents | times: 100.0 | divided_by: max_threshold_cents
+  if fill_percent > 100
+    assign fill_percent = 100
+  endif
+-%}
+
+{%- capture thresholds_json -%}
+[{"amount":{{ t1_cents }},"type":"{{ settings.cart_rewards_threshold_1_type }}","variant_id":"{{ settings.cart_rewards_threshold_1_variant_id }}","label":{{ settings.cart_rewards_threshold_1_label | json }},"position":{{ t1_position | round: 1 }}}
+{%- if settings.cart_rewards_threshold_2_enabled -%}
+  {%- liquid
+    assign t2_cents = settings.cart_rewards_threshold_2_amount | times: 100
+    assign t2_position = t2_cents | times: 100.0 | divided_by: max_threshold_cents
+  -%}
+,{"amount":{{ t2_cents }},"type":"{{ settings.cart_rewards_threshold_2_type }}","variant_id":"{{ settings.cart_rewards_threshold_2_variant_id }}","label":{{ settings.cart_rewards_threshold_2_label | json }},"position":{{ t2_position | round: 1 }}}
+{%- endif -%}
+{%- if settings.cart_rewards_threshold_3_enabled -%}
+  {%- liquid
+    assign t3_cents = settings.cart_rewards_threshold_3_amount | times: 100
+    assign t3_position = t3_cents | times: 100.0 | divided_by: max_threshold_cents
+  -%}
+,{"amount":{{ t3_cents }},"type":"{{ settings.cart_rewards_threshold_3_type }}","variant_id":"{{ settings.cart_rewards_threshold_3_variant_id }}","label":{{ settings.cart_rewards_threshold_3_label | json }},"position":{{ t3_position | round: 1 }}}
+{%- endif -%}
+]
+{%- endcapture -%}
+
+<cart-rewards-component
+  class="cart-rewards-component{% if context == 'drawer' %} cart-rewards-component--drawer{% endif %}"
+  data-thresholds="{{ thresholds_json | strip_newlines | escape }}"
+  data-max-threshold="{{ max_threshold_cents }}"
+  data-cart-total="{{ cart_total_cents }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  data-currency="{{ cart.currency.iso_code }}"
+>
+  <div
+    class="cart-rewards-bar"
+    aria-label="Cart rewards progress"
+  >
+    <div
+      class="cart-rewards-bar__track"
+      role="progressbar"
+      aria-valuenow="{{ cart_total_cents }}"
+      aria-valuemax="{{ max_threshold_cents }}"
+    >
+      <div
+        class="cart-rewards-bar__fill"
+        ref="progressFill"
+        style="width: {{ fill_percent | round: 1 }}%"
+      ></div>
+
+      {%- comment -%} Threshold 1 marker (always active) {%- endcomment -%}
+      {%- assign t1_unlocked = false -%}
+
+      {%- if cart_total_cents >= t1_cents -%}{%- assign t1_unlocked = true -%}{%- endif -%}
+      <div
+        class="cart-rewards-bar__marker{% if t1_unlocked %} cart-rewards-bar__marker--unlocked{% endif %}"
+        data-threshold-index="0"
+        style="left: {{ t1_position | round: 1 }}%"
+        aria-label="{{ settings.cart_rewards_threshold_1_label }}"
+      >
+        <span class="cart-rewards-bar__marker-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            {%- if settings.cart_rewards_threshold_1_type == 'free_shipping' -%}
+              {%- render 'icon', icon: 'truck' -%}
+            {%- else -%}
+              {%- render 'icon', icon: 'price_tag' -%}
+            {%- endif -%}
+          </svg>
+        </span>
+      </div>
+
+      {%- if settings.cart_rewards_threshold_2_enabled -%}
+        {%- assign t2_cents_check = settings.cart_rewards_threshold_2_amount | times: 100 -%}
+        {%- assign t2_pos = t2_cents_check | times: 100.0 | divided_by: max_threshold_cents -%}
+        {%- assign t2_unlocked = false -%}
+        {%- if cart_total_cents >= t2_cents_check -%}{%- assign t2_unlocked = true -%}{%- endif -%}
+        <div
+          class="cart-rewards-bar__marker{% if t2_unlocked %} cart-rewards-bar__marker--unlocked{% endif %}"
+          data-threshold-index="1"
+          style="left: {{ t2_pos | round: 1 }}%"
+          aria-label="{{ settings.cart_rewards_threshold_2_label }}"
+        >
+          <span class="cart-rewards-bar__marker-icon">
+            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+              {%- if settings.cart_rewards_threshold_2_type == 'free_shipping' -%}
+                {%- render 'icon', icon: 'truck' -%}
+              {%- else -%}
+                {%- render 'icon', icon: 'price_tag' -%}
+              {%- endif -%}
+            </svg>
+          </span>
+        </div>
+      {%- endif -%}
+
+      {%- if settings.cart_rewards_threshold_3_enabled -%}
+        {%- assign t3_cents_check = settings.cart_rewards_threshold_3_amount | times: 100 -%}
+        {%- assign t3_pos = t3_cents_check | times: 100.0 | divided_by: max_threshold_cents -%}
+        {%- assign t3_unlocked = false -%}
+        {%- if cart_total_cents >= t3_cents_check -%}{%- assign t3_unlocked = true -%}{%- endif -%}
+        <div
+          class="cart-rewards-bar__marker{% if t3_unlocked %} cart-rewards-bar__marker--unlocked{% endif %}"
+          data-threshold-index="2"
+          style="left: {{ t3_pos | round: 1 }}%"
+          aria-label="{{ settings.cart_rewards_threshold_3_label }}"
+        >
+          <span class="cart-rewards-bar__marker-icon">
+            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+              {%- if settings.cart_rewards_threshold_3_type == 'free_shipping' -%}
+                {%- render 'icon', icon: 'truck' -%}
+              {%- else -%}
+                {%- render 'icon', icon: 'price_tag' -%}
+              {%- endif -%}
+            </svg>
+          </span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <p class="cart-rewards-bar__message body-sm" ref="progressMessage">
+      {%- if t1_unlocked == false -%}
+        {%- assign remaining_cents = t1_cents | minus: cart_total_cents -%}
+        Spend {{ remaining_cents | money }} more for {{ settings.cart_rewards_threshold_1_label }}
+      {%- elsif settings.cart_rewards_threshold_2_enabled and t2_unlocked == false -%}
+        {%- assign remaining_cents = t2_cents_check | minus: cart_total_cents -%}
+        Spend {{ remaining_cents | money }} more for {{ settings.cart_rewards_threshold_2_label }}
+      {%- elsif settings.cart_rewards_threshold_3_enabled and t3_unlocked == false -%}
+        {%- assign remaining_cents = t3_cents_check | minus: cart_total_cents -%}
+        Spend {{ remaining_cents | money }} more for {{ settings.cart_rewards_threshold_3_label }}
+      {%- else -%}
+        {%- if settings.cart_rewards_threshold_3_enabled -%}
+          {{ settings.cart_rewards_threshold_3_label }} unlocked!
+        {%- elsif settings.cart_rewards_threshold_2_enabled -%}
+          {{ settings.cart_rewards_threshold_2_label }} unlocked!
+        {%- else -%}
+          {{ settings.cart_rewards_threshold_1_label }} unlocked!
+        {%- endif -%}
+      {%- endif -%}
+    </p>
+  </div>
+</cart-rewards-component>
+
+{%- endif -%}

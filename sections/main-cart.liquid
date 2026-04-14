@@ -19,6 +19,9 @@
         <div class="cart-page__title">
           {%- content_for 'block', id: 'cart-page-title', type: '_cart-title', force_empty: true %}
         </div>
+        <div class="cart-page__rewards">
+          {%- content_for 'block', id: 'cart-page-rewards', type: '_cart-rewards', force_empty: true %}
+        </div>
         <div class="cart-page__items">
           {%- content_for 'block', id: 'cart-page-items', type: '_cart-products', force_empty: true %}
         </div>
@@ -38,6 +41,10 @@
     >
       <div class="cart-page__title">
         {%- content_for 'block', id: 'cart-page-title', type: '_cart-title' %}
+      </div>
+
+      <div class="cart-page__rewards">
+        {%- content_for 'block', id: 'cart-page-rewards', type: '_cart-rewards' %}
       </div>
 
       <div class="cart-page__items">

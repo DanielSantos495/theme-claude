@@ -1,0 +1,20 @@
+{%- render 'cart-rewards-bar', context: block.settings.context -%}
+
+{% schema %}
+{
+  "name": "Cart Rewards Bar",
+  "target": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "context",
+      "label": "Context",
+      "options": [
+        { "value": "page", "label": "Cart page" },
+        { "value": "drawer", "label": "Cart drawer" }
+      ],
+      "default": "page"
+    }
+  ]
+}
+{% endschema %}

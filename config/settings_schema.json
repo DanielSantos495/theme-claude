@@ -2284,5 +2284,124 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Cart Rewards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_rewards_enabled",
+        "label": "Enable cart rewards",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Threshold 1"
+      },
+      {
+        "type": "number",
+        "id": "cart_rewards_threshold_1_amount",
+        "label": "Amount (in store currency)",
+        "default": 50
+      },
+      {
+        "type": "select",
+        "id": "cart_rewards_threshold_1_type",
+        "label": "Reward type",
+        "options": [
+          { "value": "free_shipping", "label": "Free shipping" },
+          { "value": "free_product", "label": "Free product" }
+        ],
+        "default": "free_shipping"
+      },
+      {
+        "type": "text",
+        "id": "cart_rewards_threshold_1_variant_id",
+        "label": "Gift product variant ID",
+        "info": "Required if reward type is 'Free product'. Create a $0 variant in your product admin first, then paste its variant ID here."
+      },
+      {
+        "type": "text",
+        "id": "cart_rewards_threshold_1_label",
+        "label": "Reward label",
+        "default": "Free shipping"
+      },
+      {
+        "type": "header",
+        "content": "Threshold 2"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_rewards_threshold_2_enabled",
+        "label": "Enable threshold 2",
+        "default": false
+      },
+      {
+        "type": "number",
+        "id": "cart_rewards_threshold_2_amount",
+        "label": "Amount (in store currency)",
+        "default": 100
+      },
+      {
+        "type": "select",
+        "id": "cart_rewards_threshold_2_type",
+        "label": "Reward type",
+        "options": [
+          { "value": "free_shipping", "label": "Free shipping" },
+          { "value": "free_product", "label": "Free product" }
+        ],
+        "default": "free_product"
+      },
+      {
+        "type": "text",
+        "id": "cart_rewards_threshold_2_variant_id",
+        "label": "Gift product variant ID",
+        "info": "Required if reward type is 'Free product'. Create a $0 variant in your product admin first, then paste its variant ID here."
+      },
+      {
+        "type": "text",
+        "id": "cart_rewards_threshold_2_label",
+        "label": "Reward label",
+        "default": "Free gift"
+      },
+      {
+        "type": "header",
+        "content": "Threshold 3"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_rewards_threshold_3_enabled",
+        "label": "Enable threshold 3",
+        "default": false
+      },
+      {
+        "type": "number",
+        "id": "cart_rewards_threshold_3_amount",
+        "label": "Amount (in store currency)",
+        "default": 150
+      },
+      {
+        "type": "select",
+        "id": "cart_rewards_threshold_3_type",
+        "label": "Reward type",
+        "options": [
+          { "value": "free_shipping", "label": "Free shipping" },
+          { "value": "free_product", "label": "Free product" }
+        ],
+        "default": "free_product"
+      },
+      {
+        "type": "text",
+        "id": "cart_rewards_threshold_3_variant_id",
+        "label": "Gift product variant ID",
+        "info": "Required if reward type is 'Free product'. Create a $0 variant in your product admin first, then paste its variant ID here."
+      },
+      {
+        "type": "text",
+        "id": "cart_rewards_threshold_3_label",
+        "label": "Reward label",
+        "default": "Free gift"
+      }
+    ]
   }
 ]

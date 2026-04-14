@@ -1,0 +1,22 @@
+{
+  "name": "claude-theme",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/DanielSantos495/theme-claude#readme",
+  "bugs": {
+    "url": "https://github.com/DanielSantos495/theme-claude/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielSantos495/theme-claude.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "shopify theme dev -s work-test-daniel",
+    "theme": "shopify theme dev -s work-test-daniel",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

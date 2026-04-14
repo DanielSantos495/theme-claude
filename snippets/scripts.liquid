@@ -31,10 +31,19 @@
       "@theme/component-quantity-selector": "{{ 'component-quantity-selector.js' | asset_url }}",
       "@theme/comparison-slider": "{{ 'comparison-slider.js' | asset_url }}",
       "@theme/sticky-add-to-cart": "{{ 'sticky-add-to-cart.js' | asset_url }}",
-      "@theme/fly-to-cart": "{{ 'fly-to-cart.js' | asset_url }}"
+      "@theme/fly-to-cart": "{{ 'fly-to-cart.js' | asset_url }}",
+      "@theme/cart-rewards": "{{ 'component-cart-rewards.js' | asset_url }}"
     }
   }
 </script>
+
+{% if settings.cart_rewards_enabled %}
+  <script
+    src="{{ 'component-cart-rewards.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
 
 <script
   src="{{ 'view-transitions.js' | asset_url }}"

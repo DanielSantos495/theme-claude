@@ -4208,3 +4208,77 @@ product-recommendations:has([data-has-recommendations='false']) {
     translate: 0px var(--atc-destination, 0px);
   }
 }
+
+/* ============================================
+   Cart Rewards Bar
+   ============================================ */
+
+.cart-rewards-component {
+  display: block;
+}
+
+.cart-rewards-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  padding-block: var(--padding-md);
+}
+
+.cart-rewards-bar__track {
+  position: relative;
+  height: 4px;
+  background-color: rgb(var(--color-foreground-rgb) / 0.15);
+  border-radius: 100vw;
+  /* Horizontal margin leaves room for half-marker overflow at edges */
+  margin-inline: 14px;
+}
+
+.cart-rewards-bar__fill {
+  height: 100%;
+  background-color: var(--color-foreground);
+  border-radius: inherit;
+  transition: width 0.4s ease-out;
+}
+
+.cart-rewards-bar__marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  border: 2px solid rgb(var(--color-foreground-rgb) / 0.25);
+  color: rgb(var(--color-foreground-rgb) / 0.4);
+  transition:
+    border-color 0.3s ease-out,
+    background-color 0.3s ease-out,
+    color 0.3s ease-out;
+}
+
+.cart-rewards-bar__marker--unlocked {
+  background-color: var(--color-foreground);
+  border-color: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.cart-rewards-bar__marker-icon {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-rewards-bar__marker-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.cart-rewards-bar__message {
+  margin: 0;
+}
